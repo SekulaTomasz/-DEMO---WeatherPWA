@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import {typography} from '../shared/index';
-import useModal from '../hooks/useModal';
+import {language} from '../shared/index';
 
 const StyledModalContainer = styled.div`
     position:absolute;
@@ -38,10 +38,7 @@ const StyledModalContent = styled.div`
     `}
 `
 
-
-
 const StyledModalHeader = styled.div`
-    
     display:flex;
     align-items: center
 `
@@ -55,16 +52,15 @@ const StyledModalTitle = styled.div`
     font-weight: 600;
 `
 
-const Modal = ({ children,visible }) => {
-
-    const { toggleModal } = useModal();
+const Modal = ({ children,visible, toggleModal }) => {
 
     return (<StyledModalContainer visible={visible}>
         <StyledModalOverlay visible={visible} onClick={() => toggleModal((prevState) => !prevState)}/>
         <StyledModalContent visible={visible}>
             <StyledModalHeader>
-                <StyledModalTitle>Title</StyledModalTitle>
+                <StyledModalTitle>{language.pl.modalTitle}</StyledModalTitle>
             </StyledModalHeader>
+            <hr style={{margin: '10px'}}/>
             <StyledModalBody>
                 {children}
             </StyledModalBody>

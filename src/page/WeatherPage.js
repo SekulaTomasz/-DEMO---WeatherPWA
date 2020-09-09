@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../component/Header';
 import Card from '../component/Card';
 import Fab from '../component/Fab';
-import useModal from '../hooks/useModal';
+import NewCityForm from '../container/NewCityForm';
+import Modal from '../component/Modal';
+
 
 const WeatherPage = () => {
 
-    const { toggleModal } = useModal();
+    const [isModalVisible, toggleModal] = useState(false);
+
 
     return (<div>
+        <Modal visible={isModalVisible} toggleModal={toggleModal}>
+            <NewCityForm />
+        </Modal>
         <Header />
         <Card>
-            <span>TEST</span>    
+            <span>TEST</span>
         </Card>
-        <Fab onClick={() => toggleModal((prevState) => !prevState )}/>
+        <Fab onClick={() => toggleModal((prevState) => !prevState)} />
     </div>);
 }
 

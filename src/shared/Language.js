@@ -1,5 +1,7 @@
 export const language = {
     pl: {
-        appTitle: "Weather APP"
+        appTitle: "Weather APP",
+        autocompletePlaceholder: "Wyszukaj...",
+        modalTitle: "Dodaj nowe miasto"
     }
 }
