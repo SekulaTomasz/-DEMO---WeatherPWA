@@ -9,7 +9,7 @@ export const ModalProvider = ({children}) => {
 
     return (
         <ModalContext.Provider value={{toggleModal}}>
-            { isModalVisible && <Modal />}
+            <Modal visible={isModalVisible}/>
             {children}
         </ModalContext.Provider>
     )
