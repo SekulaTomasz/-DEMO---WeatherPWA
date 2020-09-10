@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import {typography} from '../shared/index';
 import {language} from '../shared/index';
@@ -27,7 +27,6 @@ const StyledModalOverlay = styled.div`
 const StyledModalContent = styled.div`
     z-index: 2;
     min-width: 40%;
-    min-height: 40%;
     background-color: #f0efeb;
     border-radius: 1rem;
     position:relative;
@@ -52,11 +51,21 @@ const StyledModalTitle = styled.div`
     font-weight: 600;
 `
 
-const Modal = ({ children,visible, toggleModal }) => {
+const Modal = ({ children, toggleModal }) => {
 
-    return (<StyledModalContainer visible={visible}>
-        <StyledModalOverlay visible={visible} onClick={() => toggleModal((prevState) => !prevState)}/>
-        <StyledModalContent visible={visible}>
+    const [modalVisible, setModalVisibility] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setModalVisibility((prevState) => !prevState);
+        }, 300);
+
+        return () => setModalVisibility((prevState) => !prevState);
+    }, [])
+
+    return (<StyledModalContainer visible={modalVisible}>
+        <StyledModalOverlay visible={modalVisible} onClick={() => toggleModal((prevState) => !prevState)}/>
+        <StyledModalContent visible={modalVisible}>
             <StyledModalHeader>
                 <StyledModalTitle>{language.pl.modalTitle}</StyledModalTitle>
             </StyledModalHeader>

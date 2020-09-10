@@ -12,9 +12,11 @@ const WeatherPage = () => {
 
 
     return (<div>
-        <Modal visible={isModalVisible} toggleModal={toggleModal}>
+        {isModalVisible &&
+            <Modal toggleModal={toggleModal}>
             <NewCityForm />
         </Modal>
+        }
         <Header />
         <Card>
             <span>TEST</span>

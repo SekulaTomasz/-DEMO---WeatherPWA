@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import { language } from '../shared/index';
+import { language,typography } from '../shared/index';
 import { debounce } from '../utils/index';
 import { getCitiesByName } from '../api/GeoDbApi';
 
@@ -32,9 +32,12 @@ const StyledHintContainer = styled.div`
     border: 1px solid #ccc;
     display: flex;
     flex-direction: column;
+    
 `
 
-const StyledHintElement = styled.span`
+const StyledHintElementContainer = styled.div`
+    display: flex;
+    flex-direction: column;
 
     color: black;
     background-color: white;
@@ -45,9 +48,19 @@ const StyledHintElement = styled.span`
         color: white;
         background-color: #457b9d;
     }
+
+    
 `
 
-const AutoCompleteInput = ({onCityChange,value}) => {
+const StyledMainHintElement = styled.span`
+    font-size: ${typography.subtitle1}
+`
+
+const StyledAdditionalHintElement = styled.span`
+    font-size: ${typography.subtitle2}
+`
+
+const AutoCompleteInput = ({ onCityChange, value }) => {
 
     const [inputActive, setInputActive] = useState(false);
     const [cities, setCities] = useState([]);
@@ -55,26 +68,26 @@ const AutoCompleteInput = ({onCityChange,value}) => {
     let inputRef = useRef(null);
 
     useEffect(() => {
-        if(cities.length === 0) return setInputActive(false);
+        if (cities.length === 0) return setInputActive(false);
         return setInputActive(true);
     }, [cities])
 
     const onInputHandlerDebounced = (value) => {
 
         if (inputActive) {
-            if(value.length > 0) return;
+            if (value.length > 0) return;
             return setCities([]);
         }
-        getCitiesByName(value).then(({data: {data}}) => {
+        getCitiesByName(value).then(({ data: { data } }) => {
             const fetchCities = data.map((x) => {
                 return {
-                   city: x.city,
-                   country: x.country,
-                   id: x.id,
-                   geometry: {
-                       latitude: x.latitude,
-                       longitude: x.longitude
-                   }
+                    city: x.city,
+                    country: x.country,
+                    id: x.id,
+                    geometry: {
+                        latitude: x.latitude,
+                        longitude: x.longitude
+                    }
                 }
             });
             setCities(fetchCities);
@@ -85,17 +98,29 @@ const AutoCompleteInput = ({onCityChange,value}) => {
 
     const onHintSelectedHandler = (selectedObject) => {
         setCities([]);
-        onCityChange(selectedObject);
+        onCityChange(selectedObject.city);
     }
 
     return (
         <>
             <StyledAutoCompleteContainer className="form-element-container">
-                <StyledInput ref={inputRef} 
-                    onInput={({target: {value}}) => onInputHandler(value)} placeholder={language.pl.autocompletePlaceholder}></StyledInput>
-                {inputActive && 
+                <StyledInput ref={inputRef}
+                    value={value}
+                    onChange={({ target: { value } }) => onCityChange(value)}
+                    onInput={({ target: { value } }) => {
+                        onCityChange(value);
+                        onInputHandler(value)
+                    }} placeholder={language.pl.autocompletePlaceholder}></StyledInput>
+                {inputActive &&
                     <StyledHintContainer>
-                        {cities.map((x) => <StyledHintElement key={x.id} onClick={() => onHintSelectedHandler(x)}>{x.city}</StyledHintElement>)}
+                        {cities.map((x) => {
+                            return (
+                                <StyledHintElementContainer key={x.id} onClick={() => onHintSelectedHandler(x)}>
+                                    <StyledMainHintElement>{x.city}</StyledMainHintElement>
+                                    <StyledAdditionalHintElement>{x.country}</StyledAdditionalHintElement>
+                                </StyledHintElementContainer>
+                            )
+                        })}
                     </StyledHintContainer>
                 }
             </StyledAutoCompleteContainer>

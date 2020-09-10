@@ -1,15 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AutoCompleteInput from '../component/AutoCompleteInput';
+import styled from 'styled-components';
+
+
+const StyledButtonContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+
+    > button {
+        margin: 1rem;
+    }
+`
 
 const NewCityForm = () => {
 
+    useEffect(() => {
+        return () => {
+            setSelectedCity('');
+        }
+    }, [])
+
     const [selectedCity, setSelectedCity] = useState('');
 
-    const onCitySelectHandler = (value) => setSelectedCity(value);
+    
 
     return(
         <div>
-            <AutoCompleteInput onCityChange={onCitySelectHandler} value={selectedCity}/>
+            <AutoCompleteInput onCityChange={setSelectedCity} value={selectedCity}/>
+            <StyledButtonContainer>
+                <button>Cancel</button>
+                <button>Add</button>
+            </StyledButtonContainer>
         </div>
     )
 }
