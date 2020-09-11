@@ -64,7 +64,7 @@ const Modal = ({ children, toggleModal }) => {
     }, [])
 
     return (<StyledModalContainer visible={modalVisible}>
-        <StyledModalOverlay visible={modalVisible} onClick={() => toggleModal((prevState) => !prevState)}/>
+        <StyledModalOverlay visible={modalVisible} onClick={toggleModal}/>
         <StyledModalContent visible={modalVisible}>
             <StyledModalHeader>
                 <StyledModalTitle>{language.pl.modalTitle}</StyledModalTitle>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AutoCompleteInput from '../component/AutoCompleteInput';
 import styled from 'styled-components';
-
+import {typography, colors, language} from '../shared/index'
 
 const StyledButtonContainer = styled.div`
     display: flex;
@@ -9,11 +9,17 @@ const StyledButtonContainer = styled.div`
     margin-top: 1rem;
 
     > button {
-        margin: 1rem;
+        font-size: ${typography.body1};
+        margin-left: 1rem;
+        min-height: 2rem;
+        margin-left: 1rem;
+        border: unset;
+        border-radius: 5px;
+        color: white;
     }
 `
 
-const NewCityForm = () => {
+const NewCityForm = ({toggleModal}) => {
 
     useEffect(() => {
         return () => {
@@ -29,8 +35,8 @@ const NewCityForm = () => {
         <div>
             <AutoCompleteInput onCityChange={setSelectedCity} value={selectedCity}/>
             <StyledButtonContainer>
-                <button>Cancel</button>
-                <button>Add</button>
+                <button style={{backgroundColor:colors.danger}} onClick={toggleModal}>{language.pl.cancel}</button>
+                <button style={{backgroundColor:colors.success}}>{language.pl.add}</button>
             </StyledButtonContainer>
         </div>
     )

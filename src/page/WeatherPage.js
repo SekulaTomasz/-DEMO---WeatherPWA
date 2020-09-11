@@ -10,12 +10,14 @@ const WeatherPage = () => {
 
     const [isModalVisible, toggleModal] = useState(false);
 
+    const toggleModalEvent = () =>  toggleModal((prevState) => !prevState);
+
 
     return (<div>
         {isModalVisible &&
-            <Modal toggleModal={toggleModal}>
-            <NewCityForm />
-        </Modal>
+            <Modal toggleModal={toggleModalEvent}>
+                <NewCityForm toggleModal={toggleModalEvent}/>
+            </Modal>
         }
         <Header />
         <Card>
