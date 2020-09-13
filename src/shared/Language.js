@@ -7,6 +7,13 @@ export const language = {
         add: "Dodaj",
         errorMessages: {
             cityExistInDb: 'Wybrane miasto istnieje już w bazie danych'
+        },
+        weatherDescription: {
+            humidity: "Wilgotność: ",
+            pressure: "Ciśnienie: ",
+            wind: "Wiatr: ",
+            sunrise: "Wschód słońca: ",
+            sunset: "Zachód słońca: "
         }
     }
 }

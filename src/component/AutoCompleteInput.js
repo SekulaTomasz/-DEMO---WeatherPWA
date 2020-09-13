@@ -81,7 +81,7 @@ const AutoCompleteInput = ({ onCityChange, value }) => {
         getCitiesByName(value).then(({ data: { data } }) => {
             const fetchCities = data.map((x) => {
                 return {
-                    city: x.city,
+                    name: x.city,
                     country: x.country,
                     id: x.id,
                     geometry: {
@@ -98,17 +98,18 @@ const AutoCompleteInput = ({ onCityChange, value }) => {
 
     const onHintSelectedHandler = (selectedObject) => {
         setCities([]);
-        onCityChange(selectedObject.city);
+        onCityChange(selectedObject);
     }
 
     return (
         <>
             <StyledAutoCompleteContainer className="form-element-container">
                 <StyledInput ref={inputRef}
+                    autoFocus
                     value={value}
                     onChange={({ target: { value } }) => onCityChange(value)}
                     onInput={({ target: { value } }) => {
-                        onCityChange(value);
+                        onCityChange({name: value});
                         onInputHandler(value)
                     }} placeholder={language.pl.autocompletePlaceholder}></StyledInput>
                 {inputActive &&
@@ -116,7 +117,7 @@ const AutoCompleteInput = ({ onCityChange, value }) => {
                         {cities.map((x) => {
                             return (
                                 <StyledHintElementContainer key={x.id} onClick={() => onHintSelectedHandler(x)}>
-                                    <StyledMainHintElement>{x.city}</StyledMainHintElement>
+                                    <StyledMainHintElement>{x.name}</StyledMainHintElement>
                                     <StyledAdditionalHintElement>{x.country}</StyledAdditionalHintElement>
                                 </StyledHintElementContainer>
                             )

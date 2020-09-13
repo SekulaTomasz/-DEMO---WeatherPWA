@@ -25,13 +25,13 @@ export const CitiesProvider = ({ children }) => {
 
     
 
-    const addCityToDatabase = (cityName) => {
-        if(cities.some(x => x === cityName)) throw new Error(language.pl.errorMessages.cityExistInDb)
-        setCities(cityName)
+    const addCityToDatabase = (newRow) => {
+        if(cities.some(x => x === newRow)) throw new Error(language.pl.errorMessages.cityExistInDb)
+        setCities([...cities,newRow])
     }
 
     const removeCityFromDatabase = (cityName) => {
-        const filteredCities = cities.filter(x => x === cityName);
+        const filteredCities = cities.filter(x => x.name !== cityName);
         setCities(filteredCities);
     }
 

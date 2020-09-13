@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import AutoCompleteInput from '../component/AutoCompleteInput';
 import styled from 'styled-components';
 import {typography, colors, language} from '../shared/index'
+import { CitiesContext } from '../context/CitiesContext';
 
 const StyledButtonContainer = styled.div`
     display: flex;
@@ -16,6 +17,7 @@ const StyledButtonContainer = styled.div`
         border: unset;
         border-radius: 5px;
         color: white;
+        cursor: pointer;
     }
 `
 
@@ -23,20 +25,33 @@ const NewCityForm = ({toggleModal}) => {
 
     useEffect(() => {
         return () => {
-            setSelectedCity('');
+            setSelectedCity({name: ''});
         }
     }, [])
 
-    const [selectedCity, setSelectedCity] = useState('');
+    const [selectedCity, setSelectedCity] = useState({
+        name: ''
+    });
 
-    
+    const {addCityToDatabase} = useContext(CitiesContext);
+
+    const AddButtonClickHandler = (value) => {
+        try{
+            addCityToDatabase(value);
+            toggleModal();
+        }
+        catch(ex){
+            console.log(ex.message);
+        }
+    }
+
 
     return(
         <div>
-            <AutoCompleteInput onCityChange={setSelectedCity} value={selectedCity}/>
+            <AutoCompleteInput onCityChange={setSelectedCity} value={selectedCity.name}/>
             <StyledButtonContainer>
                 <button style={{backgroundColor:colors.danger}} onClick={toggleModal}>{language.pl.cancel}</button>
-                <button style={{backgroundColor:colors.success}}>{language.pl.add}</button>
+                <button style={{backgroundColor:colors.success}} onClick={() => AddButtonClickHandler(selectedCity)}>{language.pl.add}</button>
             </StyledButtonContainer>
         </div>
     )
