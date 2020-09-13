@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { typography } from '../../shared/index';
+import ClearIcon from '@material-ui/icons/Clear';
 
 const StyledMainHeaderRowContainer = styled.div`
     display: flex;
@@ -19,7 +20,6 @@ const StyledRightHeaderColumn = styled.div`
 `
 
 const StyledRemoveButton = styled.div`
-    padding-right: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,10 +45,7 @@ const CardHeader = ({ actions, title, subtitle = "" }) => {
             </StyledLeftHeaderColumn>
             <StyledRightHeaderColumn>
                 <StyledRemoveButton onClick={() => actions.removeCityFromDatabase(title)}>
-                    <span style={{
-                        fontSize: typography.H5,
-                        fontWeight: 600
-                    }}>x</span>
+                    <ClearIcon style={{padding: '0.5rem'}}/>
                 </StyledRemoveButton>
             </StyledRightHeaderColumn>
         </StyledMainHeaderRowContainer>

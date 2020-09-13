@@ -20,3 +20,8 @@ code {
 .form-element-container {
   width: 100%;
 }
+
+p {
+  margin: unset;
+  line-height: 200%;
+}
