@@ -25,11 +25,11 @@ const StyledIconContainer = styled.div`
     padding: 1rem;
 `
 
-const Header = () => {
+const Header = ({reloadComponent}) => {
     return <StyledHeaderContainer>
         <StyledTitle>{language.pl.appTitle}</StyledTitle>
         <StyledIconContainer>
-            <Refresh style={{ fontSize: '3rem', color:"white", cursor: 'pointer' }}/>
+            <Refresh style={{ fontSize: '3rem', color:"white", cursor: 'pointer' }} onClick={() => reloadComponent()}/>
         </StyledIconContainer>
     </StyledHeaderContainer>
 }

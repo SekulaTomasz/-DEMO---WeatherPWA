@@ -14,6 +14,15 @@ export const language = {
             wind: "Wiatr: ",
             sunrise: "Wschód słońca: ",
             sunset: "Zachód słońca: "
+        },
+        weekDaysShortName: {
+            monday: "Pon",
+            tuesday: "Wto",
+            wednesday: "Śro",
+            thursday: "Czw",
+            friday: "Pio",
+            saturday: "Sob",
+            sunday: "Niedz"
         }
     }
 }
