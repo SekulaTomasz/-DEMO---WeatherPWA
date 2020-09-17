@@ -1,15 +1,25 @@
 import React from 'react';
-import './App.css';
 import { LoaderProvider } from './context/LoaderContext';
+import { CitiesProvider } from './context/CitiesContext';
 import WeatherPage from './page/WeatherPage';
+import styled from 'styled-components';
+
+const StyledAppContainer = styled.div`
+  min-height: 100vh;
+  background-color: #f0efeb;
+`
+
+
 
 function App() {
   return (
-    <div className="App">
+    <StyledAppContainer>
       <LoaderProvider>
-        <WeatherPage />
+        <CitiesProvider>
+          <WeatherPage />
+        </CitiesProvider>
       </LoaderProvider>
-    </div>
+    </StyledAppContainer>
   );
 }
 

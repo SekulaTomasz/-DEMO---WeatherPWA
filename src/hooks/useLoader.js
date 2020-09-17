@@ -3,7 +3,7 @@ import {
 } from 'react';
 import {
     LoaderContext
-} from '../contexts/LoaderContext';
+} from '../context/LoaderContext';
 
 const useLoader = () => useContext(LoaderContext);
 
